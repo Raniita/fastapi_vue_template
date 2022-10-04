@@ -6,7 +6,9 @@ services:
     ports:
       - 5000:5000
     environment:
-      - DATABASE_URL=postgres://hello_fastapi:hello_fastapi@db:5432/hello_fastapi_dev
+      - POSTGRES_USER=hello_fastapi
+      - POSTGRES_PASSWORD=hello_fastapi
+      - POSTGRES_DB=hello_fastapi_dev
       - SECRET_KEY=hello_fastapi
     volumes:
       - ./services/backend:/app

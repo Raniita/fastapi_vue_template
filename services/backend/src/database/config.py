@@ -1,7 +1,7 @@
-import os
+from src.config import settings
 
 TORTOISE_ORM = {
-    "connections": {"default": os.environ.get("DATABASE_URL")},
+    "connections": {"default": settings.DATABASE_URL},
     "apps": {
         "models": {
             "models": [

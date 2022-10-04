@@ -6,6 +6,7 @@ from tortoise.exceptions import DoesNotExist
 from src.database.models import Notes
 from src.schemas.notes import NoteInSchema, NoteOutSchema
 from src.schemas.token import Status
+from src.main import logger
 
 async def get_notes():
     return await NoteOutSchema.from_queryset(Notes.all())
@@ -17,6 +18,7 @@ async def create_note(note, current_user) -> NoteOutSchema:
     note_dict = note.dict(exclude_unset=True)
     note_dict["author_id"] = current_user.id
     note_obj = await Notes.create(**note_dict)
+    logger.info(f"Note created by user <{current_user.username}>")
     return await NoteOutSchema.from_tortoise_orm(note_obj)
 
 async def update_note(note_id, note, current_user) -> NoteOutSchema:

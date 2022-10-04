@@ -6,6 +6,7 @@ from tortoise.exceptions import DoesNotExist, IntegrityError
 from src.database.models import Users
 from src.schemas.token import Status
 from src.schemas.users import UserOutSchema
+from src.main import logger
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
@@ -17,6 +18,7 @@ async def create_user(user) -> UserOutSchema:
     except IntegrityError:
         raise HTTPException(status_code=401, detail=f"Sorry, that username already exists.")
 
+    logger.info(f"User <{user}> created")
     return await UserOutSchema.from_tortoise_orm(user_obj)
 
 async def delete_user(user_id, current_user) -> Status:
