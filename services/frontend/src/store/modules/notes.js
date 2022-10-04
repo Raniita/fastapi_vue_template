@@ -24,7 +24,7 @@ const actions = {
         commit('setNote', data);
     },
     // eslint-disable-next-line no-empty-pattern
-    async updateNote({}, none){
+    async updateNote({}, note){
         await axios.patch(`note/${note.id}`, note.form);
     },
     // eslint-disable-next-line no-empty-pattern
